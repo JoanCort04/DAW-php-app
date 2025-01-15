@@ -1,43 +1,59 @@
 <?php
 
+/**
+ * Classe per mostrar l'encapçalament (header) de la pàgina web.
+ *
+ * Aquesta classe gestiona la visualització de l'encapçalament de la pàgina web,
+ * incloent la informació bàsica del document HTML, els enllaços a les fulles d'estil
+ * de Bootstrap, el logotip i la barra de navegació.
+ */
 class Header {
     
-    // Método para mostrar el encabezado
+    /**
+     * Mètode per mostrar l'encapçalament de la pàgina.
+     *
+     * Aquest mètode imprimeix l'estructura bàsica d'un document HTML amb l'encapçalament,
+     * els enllaços a les fulles d'estil, la barra de navegació amb enllaços al centre i el
+     * logotip, així com un carrusel d'imatges per mostrar al visitant.
+     * També aplica estils personalitzats per ajustar l'aparença dels elements.
+     *
+     * @return void
+     */
     public function mostrarHeader() {
-        // Imprime la estructura básica de un documento HTML con el encabezado y los estilos
+        // Imprimeix l'estructura bàsica del document HTML amb l'encapçalament i els estils
         echo '<!DOCTYPE html>
               <html lang="es">
               <head>
                 <meta charset="UTF-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
                 <title>Centro de Formación Profesional</title>
-                <!-- Enlace a Bootstrap desde su repositorio remoto -->
+                <!-- Enllaç a Bootstrap des del seu repositori remot -->
                 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
                 
-                <!-- Estilos personalizados -->
+                <!-- Estils personalitzats -->
                 <style>
                     body {
-                        margin-bottom: 70px; /* Ajusta la altura del footer fijo */
-                        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; /* Utiliza Helvetica como tipografía predeterminada */
+                        margin-bottom: 70px; 
+                        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; /* Utilitza Helvetica com a tipografia predeterminada */
                     }
                     .footer {
                         position: fixed;
                         bottom: 0;
                         width: 100%;
-                        background-color: #343a40; /* Color de fondo del footer */
-                        color: white; /* Color del texto del footer */
-                        padding: 10px 0; /* Espaciado interno del footer */
+                        background-color: #343a40; /* Color de fons del footer */
+                        color: white; /* Color del text del footer */
+                        padding: 10px 0; /* Espaiat intern del footer */
                     }
                     .navbar-custom {
-                        background-color: #37541d !important; /* Cambia el color de fondo del encabezado a blanco */
-                        color: #343a40 !important; /* Cambia el color del texto del encabezado a oscuro */
-                        padding: 15px 0; /* Ajusta el espaciado interno del encabezado */
+                        background-color: #37541d !important; 
+                        color: #343a40 !important;
+                        padding: 15px 0; 
                     }
                     .navbar-custom .navbar-nav .nav-link {
-                        color: #ffffff !important; /* Cambia el color del texto del menú a oscuro */
+                        color: #ffffff !important; /* Canvia el color del text del menú */
                     }
                     
-                    /* Estilos adicionales para personalizar el carrusel */
+                    /* Estils addicionals per personalitzar el carrusel */
                     #carrusel-container {
                         margin-top: 50px;
                     }
@@ -51,7 +67,7 @@ class Header {
               </head>
               <body>';
         
-        // Imprime el encabezado con la barra de navegación y el logotipo
+        // Imprimeix l'encapçalament amb la barra de navegació i el logotip
         echo '<header class="container-fluid navbar-custom">
                 <div class="container">
                     <div class="row align-items-center">
@@ -79,7 +95,7 @@ class Header {
                                                 <a class="nav-link" href="#">Alumnat</a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link" href="#">Profesorat</a>
+                                                <a class="nav-link" href="#">Professorat</a>
                                             </li>
                                             <li class="nav-item">
                                                 <a class="nav-link" href="#">Contacte</a>
@@ -93,7 +109,7 @@ class Header {
                 </div>
               </header>';
         
-        // Imprime el carrusel con imágenes
+        // Imprimeix el carrusel amb imatges
         echo '<div class="container" id="carrusel-container">
     <div id="carrusel" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
@@ -113,14 +129,14 @@ class Header {
         </button>
         <button class="carousel-control-next" type="button" data-bs-target="#carrusel" data-bs-slide="next">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Siguiente</span>
+            <span class="visually-hidden">Següent</span>
         </button>
     </div>
 </div>';
     }
 }
 
-// Crea una instancia de la clase Header y llama al método mostrarHeader
+// Crea una instància de la classe Header i crida el mètode mostrarHeader
 $header = new Header();
 $header->mostrarHeader();
 

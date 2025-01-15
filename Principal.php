@@ -1,40 +1,57 @@
 <?php
 
+// Inclou els fitxers de connexió i capçalera
 require_once('Connexio.php');
 require_once('Header.php');
 
+/**
+ * Classe per mostrar la llista de productes.
+ *
+ * Aquesta classe s'encarrega de gestionar la visualització de la llista de productes
+ * des de la base de dades, mostrant informació detallada sobre cada producte i
+ * permetent realitzar accions com modificar o eliminar un producte.
+ */
 class Principal {
     
-    // Método para mostrar la lista de productos
+    /**
+     * Mètode per mostrar la llista de productes.
+     *
+     * Aquest mètode recupera la llista de productes des de la base de dades,
+     * juntament amb la informació de la seva categoria, i mostra aquesta informació
+     * en una taula HTML. També inclou enllaços per modificar i eliminar productes,
+     * així com un botó per afegir un nou producte.
+     *
+     * @return void
+     */
     public function mostrarProductes() {
-        // Obtiene la conexión a la base de datos
+        // Obtén la connexió a la base de dades
         $conexionObj = new Connexio();
         $conexion = $conexionObj->obtenirConnexio();
 
-        // Consulta para obtener la lista de productos con información de categorías
+        // Consulta per obtenir la llista de productes amb informació de categories
         $consulta = "SELECT p.id, p.nom, p.descripció, p.preu, c.nom as categoria
                      FROM productes p
                      INNER JOIN categories c ON p.categoria_id = c.id";
         $resultado = $conexion->query($consulta);
 
-        // Estructura HTML de la página
+        // Estructura HTML de la pàgina
         echo '<!DOCTYPE html>
               <html lang="es">
               <head>
                 <meta charset="UTF-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
                 <title>Llista de productes</title>
-                <!-- Enlace a Bootstrap desde su repositorio remoto -->
+                <!-- Enllaç a Bootstrap des del seu repositori remot -->
                 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
               </head>
               <body>
                 <div class="container mt-5" style="margin-bottom: 100px">';
 
-        // Verifica si hay productos en la base de datos
+        // Verifica si hi ha productes a la base de dades
         if ($resultado->num_rows > 0) {
-            // Botón para agregar un nuevo producto
+            // Botó per afegir un nou producte
             echo '<hr><a href="Nou.php" class="btn btn-primary">Nou producte</a><hr>';
-            // Tabla para mostrar la lista de productos
+            // Taula per mostrar la llista de productes
             echo '<table class="table table-striped">';
             echo '<thead>
                     <tr>
@@ -49,7 +66,7 @@ class Principal {
                   </thead>';
             echo '<tbody>';
             $i = 1;
-            // Itera sobre los resultados y muestra cada producto en una fila de la tabla
+            // Itera sobre els resultats i mostra cada producte en una fila de la taula
             while ($fila = $resultado->fetch_assoc()) {
                 echo '<tr>
                         <td>' . $i . '</td>
@@ -66,19 +83,19 @@ class Principal {
             echo '</tbody>';
             echo '</table>';
             echo '</div>';
-            // Incluye el pie de página
+            // Inclou el peu de pàgina
             require_once('Footer.php');
         } else {
-            // Mensaje si no hay productos
+            // Missatge si no hi ha productes
             echo '<p>No hi ha productes.</p>';
         }
 
-        // Cierra la conexión a la base de datos
+        // Tanca la connexió a la base de dades
         $conexion->close();
     }
 }
 
-// Crea una instancia de la clase Principal y llama al método mostrarProductes
+// Crea una instància de la classe Principal i crida al mètode mostrarProductes
 $listaProductos = new Principal();
 $listaProductos->mostrarProductes();
 

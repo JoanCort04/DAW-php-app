@@ -1,40 +1,57 @@
 <?php
 
+// Inclou els fitxers de connexió i capçalera
 require_once('Connexio.php');
 require_once('Header.php');
 
+/**
+ * Classe per modificar la informació d'un producte.
+ *
+ * Aquesta classe gestiona la visualització i el processament del formulari
+ * per modificar un producte existent a la base de dades.
+ */
 class Modificar {
 
-    // Método para mostrar el formulario de modificación del producto
+    /**
+     * Mètode per mostrar el formulari de modificació d'un producte.
+     *
+     * Aquest mètode genera el formulari HTML per modificar un producte existent. 
+     * Primer verifica que l'ID del producte sigui vàlid, obté la informació del producte
+     * des de la base de dades, i mostra el formulari amb les dades actuals del producte.
+     * Si l'ID no és vàlid o el producte no es troba, s'informa de l'error.
+     *
+     * @param int $id L'ID del producte a modificar.
+     * @return void
+     */
     public function mostrarFormulari($id) {
-        // Verifica si el ID del producto es válido
+        // Verifica si l'ID del producte és vàlid
         if (!isset($id) || !is_numeric($id)) {
-            echo '<p>ID de producto no válido.</p>';
+            echo '<p>ID de producte no vàlid.</p>';
             return;
         }
 
-        // Obtiene la conexión a la base de datos
+        // Obtén la connexió a la base de dades
         $conexionObj = new Connexio();
         $conexion = $conexionObj->obtenirConnexio();
 
-        // Consulta para obtener la información del producto
+        // Consulta per obtenir la informació del producte
         $consulta = "SELECT id, nom, descripció, preu, categoria_id
                      FROM productes
                      WHERE id = " . $id;
         $resultado = $conexion->query($consulta);
 
-        // Verifica si se encontró el producto
+        // Verifica si es troba el producte
         if ($resultado && $resultado->num_rows > 0) {
             $producto = $resultado->fetch_assoc();
 
-            // Imprime la estructura HTML del formulario de modificación
+            // Imprimeix l'estructura HTML del formulari de modificació
             echo '<!DOCTYPE html>
                   <html lang="es">
                   <head>
                     <meta charset="UTF-8">
                     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
                     <title>Modificar producte</title>
-                    <!-- Enlace a Bootstrap desde su repositorio remoto -->
+                    <!-- Enllaç a Bootstrap des del seu repositori remot -->
                     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
                   </head>
                   <body>
@@ -42,58 +59,57 @@ class Modificar {
                         <h2>Modificar producte</h2>
                         <hr>
                         <form action="Actualitzar.php" method="POST">
-                            <!-- Campos del formulario con la información actual del producto -->
+                            <!-- Camps del formulari amb la informació actual del producte -->
                             <input type="hidden" name="id" value="' . $producto['id'] . '">
 
                             <div class="mb-3">
-                                <label for="nom" class="form-label">Nombre:</label>
+                                <label for="nom" class="form-label">Nom:</label>
                                 <input type="text" name="nom" class="form-control" value="' . $producto['nom'] . '" required>
                             </div>
 
                             <div class="mb-3">
-                                <label for="descripcio" class="form-label">Descripción:</label>
+                                <label for="descripcio" class="form-label">Descripció:</label>
                                 <input type="text" name="descripcio" class="form-control" value="' . $producto['descripció'] . '" required>
                             </div>
 
                             <div class="mb-3">
-                                <label for="preu" class="form-label">Precio:</label>
+                                <label for="preu" class="form-label">Preu:</label>
                                 <input type="number" name="preu" class="form-control" value="' . $producto['preu'] . '" required>
                             </div>
 
                             <div class="mb-3">
-                                <label for="categoria" class="form-label">Categoría:</label>
+                                <label for="categoria" class="form-label">Categoria:</label>
                                 <select name="categoria" class="form-select" required>
-                                    <!-- Opciones del selector de categorías con la opción seleccionada según la información actual -->
-                                    <option value="1" ' . ($producto['categoria_id'] == 1 ? 'selected' : '') . '>Electrónicos</option>
+                                    <option value="1" ' . ($producto['categoria_id'] == 1 ? 'selected' : '') . '>Electrònics</option>
                                     <option value="2" ' . ($producto['categoria_id'] == 2 ? 'selected' : '') . '>Roba</option>
-                                    <!-- Agrega más opciones según sea necesario -->
+                                    <!-- Afegir més opcions segons sigui necessari -->
                                 </select>
                             </div>
 
-                            <!-- Agrega más campos según sea necesario -->
+                            <!-- Afegir més camps segons sigui necessari -->
 
                             <hr>
-                            <!-- Botones de guardar y cancelar -->
+                            <!-- Botons de guardar i cancel·lar -->
                             <input type="submit" value="Guardar" class="btn btn-primary">
-                            <a href="Principal.php" class="btn btn-secondary">Cancelar</a>
+                            <a href="Principal.php" class="btn btn-secondary">Cancel·lar</a>
                         </form>
                     </div>';
             
-            // Incluye el pie de página
+            // Inclou el peu de pàgina
             require_once('Footer.php');
         } else {
-            echo '<p>No se encontró el producto.</p>';
+            echo '<p>No es va trobar el producte.</p>';
         }
 
-        // Cierra la conexión a la base de datos
+        // Tanca la connexió a la base de dades
         $conexion->close();
     }
 }
 
-// Obtiene el ID del producto de la variable GET
+// Obtén l'ID del producte des de la variable GET
 $idProducto = isset($_GET['id']) ? $_GET['id'] : null;
 
-// Crea una instancia de la clase Modificar y llama al método mostrarFormulari
+// Crea una instància de la classe Modificar i crida al mètode mostrarFormulari
 $modificarProducto = new Modificar();
 $modificarProducto->mostrarFormulari($idProducto);
 
