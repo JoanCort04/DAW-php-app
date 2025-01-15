@@ -3,12 +3,12 @@ Search.appendIndex(
                 {
             "fqsen": "\\Actualitzar",
             "name": "Actualitzar",
-            "summary": "Clase\u0020para\u0020actualizar\u0020productos\u0020en\u0020la\u0020base\u0020de\u0020datos.",
+            "summary": "Classe\u0020per\u0020actualitzar\u0020productes\u0020a\u0020la\u0020base\u0020de\u0020dades.",
             "url": "classes/Actualitzar.html"
         },                {
             "fqsen": "\\Actualitzar\u003A\u003Aactualizar\u0028\u0029",
             "name": "actualizar",
-            "summary": "M\u00E9todo\u0020para\u0020actualizar\u0020un\u0020producto\u0020en\u0020la\u0020base\u0020de\u0020datos.",
+            "summary": "M\u00E8tode\u0020per\u0020actualitzar\u0020un\u0020producte\u0020a\u0020la\u0020base\u0020de\u0020dades.",
             "url": "classes/Actualitzar.html#method_actualizar"
         },                {
             "fqsen": "\\Connexio",
